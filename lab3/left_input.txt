@@ -1,0 +1,4 @@
+3
+S -> Sa | b
+T -> T+E | E
+E -> Sa | Sb
