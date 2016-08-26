@@ -1,0 +1,5 @@
+Question
+
+Design a lexical analyzer for a given language and the lexical analyzer should ignore redundant spaces, tabs and new lines, it shoudl also ignore comments although the syntax specification stakes that identifiers can be arbitrary long but you may restrict the length to some reasonable value.
+
+Write a C program to simulate the same.
