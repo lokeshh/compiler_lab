@@ -13,15 +13,20 @@ i = 0;
 stack = []
 
 def E():
+  stack.append('E -> TX')
   print ' '*i, 'Trying: E -> TX'
   if T() and X():
     return True
+  stack.pop()
   return False
 
 def T():
+  stack.append('T -> FY')
   print ' '*i, 'Trying: T -> FY'
   if F() and Y():
     return True
+  stack.pop()
+  return False
 
 def X():
   global i
@@ -35,12 +40,15 @@ def X():
 
 def X1():
   print ' '*i, 'Trying: X -> +TX'
+  stack.append('X -> +TX')
   if check('+') and T() and X():
     return True
+  stack.pop()
   return False
 
 def X2():
   print ' '*i, 'Trying: X -> _'
+  stack.append('X -> _')
   return True
 
 def Y():
@@ -55,10 +63,15 @@ def Y():
 
 def Y1():
   print ' '*i, 'Trying: Y -> *FY'
-  return check('*') and F() and Y()
+  stack.append('Y -> *FY')
+  if check('*') and F() and Y():
+    return True
+  stack.pop()
+  return False
 
 def Y2():
   print ' '*i, 'Trying: Y -> _'
+  stack.append('Y -> _')
   return True
 
 def F():
@@ -73,11 +86,19 @@ def F():
 
 def F1():
   print ' '*i, 'Trying: F -> (E)'
-  return check('(') and E() and check(')')
+  stack.append('F -> (E)')
+  if check('(') and E() and check(')'):
+    return True
+  stack.pop()
+  return False
 
 def F2():
   print ' '*i, 'Trying: F -> i'
-  return check('i')
+  stack.append('F -> i')
+  if check('i'):
+    return True
+  stack.pop()
+  return False
 
 def check(symbol):
   global i
@@ -93,4 +114,10 @@ def start():
       return True
   return False
 
-print start()
+if start():
+  print 'String accepted'
+  print 'Parse Tree is:'
+  for i in range(len(stack)):
+    print ' '*i, stack[i]
+else:
+  print 'String not accepted'
